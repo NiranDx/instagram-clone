@@ -24,8 +24,7 @@ function App() {
   }, []);
 
   return (
-    <Router>qq
-     
+    <Router>
       {
         windowWidth >= 768 ?
           <Layout >
