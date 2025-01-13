@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
-import Sidebar from './components/Sidebar'; // อย่าลืม import Sidebar ที่เราสร้าง
+import Sidebar from './components/Sidebar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Feed from './components/Feed';
 import HeaderForMobile from './components/HeaderForMobile';
 import FooterMenu from './components/FooterMenu';
 import InstagramStory from './components/InstagramStory';
-
 
 const { Content } = Layout;
 

@@ -1,0 +1,8 @@
+#container-feed{
+    .container-feed{
+        max-width: 450px; /* Change max-width for small screens */
+        @media (max-width: 768px) {
+            max-width: 300px !important; /* Change max-width for small screens */
+        } 
+    }
+}

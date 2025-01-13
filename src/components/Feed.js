@@ -1,6 +1,7 @@
 import { BookOutlined, CommentOutlined, EllipsisOutlined, HeartOutlined, SendOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Card, Col, Row, Typography } from 'antd';
 import React from 'react';
+import '../css/feed.css'
 
 const { Text } = Typography;
 
@@ -33,8 +34,8 @@ const Feed = () => {
   ];
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-      <div style={{width: "660px  "}}>
+    <div id='container-feed' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <div  className='container-feed' style={{maxWidth: "500px "}}>
         <Row gutter={[16, 16]}>
           {posts.map((post) => (
             <Col span={24} key={post.id}>
@@ -53,7 +54,7 @@ const Feed = () => {
                   }
                   description={
                     <div>
-                      <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+                      <img alt="example"  style={{width: "100% "}} src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
                           <HeartOutlined style={{ marginRight: '10px' }} />
@@ -68,7 +69,8 @@ const Feed = () => {
                         <Text strong>{post.likes} Likes</Text>
                         <Text style={{ marginLeft: '10px' }}>{post.comments} Comments</Text>
                       </div>
-                      <Text strong>{post.user}{post.description}</Text>
+                      <Text strong>{post.user}</Text>
+                      <Text style={{ marginLeft: '10px' }}>{post.description}</Text>
                     </div>
                   }
                 />

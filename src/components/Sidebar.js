@@ -8,14 +8,14 @@ const { Sider } = Layout;
 const Sidebar = ({PageSize}) => {
   return (
     <Sider width={200} trigger={null} collapsible collapsed={PageSize <= 1024} theme="light" style={{
-      position: 'fixed',
+      position: 'sticky',
       top: 0,
       left: 0,
       bottom: 0,
-      width: '250px',
       background: '#fff',
       zIndex: 10,
       boxShadow: '2px 0 8px rgba(0, 0, 0, 0.1)',
+      height:'100vh'
     }}>
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <h2 style={{ fontWeight: 'bold', color: '#000' }}>{PageSize <= 1024 ? <InstagramOutlined /> : 'Instagram'}</h2> 

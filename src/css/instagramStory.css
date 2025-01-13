@@ -1,0 +1,8 @@
+#container-instagramStory{
+    .container-instagramStory{
+        max-width: 650px; /* Change max-width for small screens */
+        @media (max-width: 768px) {
+            max-width: 100% !important; /* Change max-width for small screens */
+        } 
+    }
+}
