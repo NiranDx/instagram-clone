@@ -5,9 +5,9 @@ import { ApolloClient, InMemoryCache, gql, useQuery } from '@apollo/client';
 const GRAPHQL_ENDPOINT = 'https://graphql.anilist.co';
 
 const INITIAL_QUERY = gql`
-  query Page($page: Int, $perPage: Int) {
+  query Page($page: Int, $perPage: Int, $search: String) {
     Page(page: $page, perPage: $perPage) {
-      users {
+      users(search: $search) {
         id
         name
         avatar {
@@ -28,10 +28,12 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export function FetchQlUser(page,perPage) {
+export function FetchQlUser(page = 1, perPage = 5, search = null) {
+  
   const INITIAL_VARIABLES = {
     page,
     perPage,
+    search
   };
 
   const { loading, error, data } = useQuery(INITIAL_QUERY, {
@@ -39,11 +41,7 @@ export function FetchQlUser(page,perPage) {
     client,
   });
 
-  
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  return {data: data.Page.users}
+  return { data: data?.Page?.users || [], loading: loading, error: error }
 }
 
 export default client; 

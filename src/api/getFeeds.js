@@ -1,82 +1,63 @@
 import React from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache, useQuery, gql } from '@apollo/client';
 
-const GRAPHQL_ENDPOINT = 'https://graphql.anilist.co'; 
+const GRAPHQL_ENDPOINT = 'https://graphql.anilist.co';
 
 const INITIAL_QUERY = gql`
-  query Page($page: Int, $perPage: Int) {
+  query Page($page: Int, $perPage: Int, $search: String) {
   Page(page: $page, perPage: $perPage) {
-    threads {
+    threads(search: $search) {
       id
-      title
       isLiked
-      repliedAt
-      createdAt
-      updatedAt
-      user {
-        id
-        name
-        avatar {
-          large
-        }
-        bannerImage
-        isFollowing
-        isFollower
-        isBlocked
-        createdAt
-        updatedAt
-      }
-      replyUser {
-        id
-        name
-        avatar {
-          large
-        }
-        bannerImage
-        moderatorRoles
-      }
-      likes {
-        name
-        avatar {
-          large
-        }
-        isFollowing
-        isFollower
-      }
-      body
       likeCount
-      replyCount
+      body
       viewCount
-      isSubscribed
-      replyCommentId
-      replyUserId
       userId
-      siteUrl
-      categories {
+      user {
+        avatar {
+          large
+        }
         id
+        isFollower
+        isFollowing
+        name
+        bannerImage
+      }
+      title
+      replyCount
+      replyUser {
+        avatar {
+          large
+        }
+        id
+        isFollowing
+        isFollower
         name
       }
+      replyCommentId
+      createdAt
+      repliedAt
     }
   }
-}
-`;
+}`;
 
 const client = new ApolloClient({
-    uri: GRAPHQL_ENDPOINT,
-    cache: new InMemoryCache(),
+  uri: GRAPHQL_ENDPOINT,
+  cache: new InMemoryCache(),
 });
-export function FetchFeedsData(page, perPage) {
-    const INITIAL_VARIABLES = {
-        page,
-        perPage,
-      };
-    
-   const { loading, error, data } = useQuery(INITIAL_QUERY, {
-      variables: INITIAL_VARIABLES,
-      client,
-    });
+export function FetchFeedsData(page = 1, perPage = 20, search = null) {
+  const INITIAL_VARIABLES = {
+    page,
+    perPage,
+    search
+  };
 
-  return {data: data?.Page?.threads||[],loading:loading,error:error}
+  const { loading, error, data } = useQuery(INITIAL_QUERY, {
+    variables: INITIAL_VARIABLES,
+    client,
+  });
+
+  return { data: data?.Page?.threads || [], loading: loading, error: error }
 };
 
 export default client; 

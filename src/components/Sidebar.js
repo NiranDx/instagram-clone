@@ -15,6 +15,7 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/sidebar.css";
 import { AuthContext } from "../App";
+import SearchList from "./SearchList";
 
 const { Sider } = Layout;
 
@@ -93,7 +94,7 @@ const Sidebar = ({ PageSize }) => {
             <Link to="/create">Create</Link>
           </Menu.Item>
           <Menu.Item key="profile" icon={<Avatar
-          src={data[0]?.avatar.large}
+            src={data[0]?.avatar.large}
             style={{
               width: '20px',
               height: '20px',
@@ -124,11 +125,9 @@ const Sidebar = ({ PageSize }) => {
           open={open}
           rootStyle={{ left: "80px", zIndex: "90" }}
         >
-          <Input
-            placeholder="Search..."
-            allowClear
-            onPressEnter={(e) => console.log("Search:", e.target.value)}
-          />
+          
+
+          <SearchList />
         </Drawer>
       </div>
     </Sider>
