@@ -73,13 +73,13 @@ const Feed = () => {
                 <Card.Meta
                   title={
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <div style={{display: 'flex', gap: '12px'}}>
+                      <div style={{ display: 'flex', gap: '12px' }}>
                         <Avatar src={post?.user?.avatar?.large || imageReload} size={32} icon={<UserOutlined />} />
-                        <div style={{display: 'flex', flexDirection: 'column'}}>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
                           <Text strong>
                             {post?.user?.name}
                           </Text>
-                          <Text style={{fontWeight: '400', fontSize: '10px'}}>{convertTimestampToDatetime(post?.createdAt)}</Text>
+                          <Text style={{ fontWeight: '400', fontSize: '10px' }}>{convertTimestampToDatetime(post?.createdAt)}</Text>
                         </div>
 
                       </div>
@@ -116,7 +116,7 @@ const Feed = () => {
                         </div>
                       </div>
                       <div style={{ marginTop: '10px', fontSize: '14px' }}>
-                        <Text strong>{post?.likeCount} Likes</Text>
+                        <Text strong>{likedPosts.has(post?.id) ? post?.likeCount + 1 : post?.likeCount} Likes</Text>
                         <Text style={{ marginLeft: '10px' }}>{post?.replyCount} Comments</Text>
                       </div>
                       <Text strong>{post?.user?.name}</Text>
