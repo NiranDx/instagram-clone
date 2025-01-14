@@ -1,7 +1,7 @@
 import { ConfigProvider, Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Feed from './components/Feed';
+import Feed from './components/Feeds';
 import FooterMenu from './components/FooterMenu';
 import HeaderForMobile from './components/HeaderForMobile';
 import InstagramStory from './components/InstagramStory';
