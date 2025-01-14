@@ -11,7 +11,7 @@ const FooterMenu = () => {
           background: '#fff',
           borderTop: '1px solid #ddd',
           padding: '10px 0',
-          position: 'fixed',
+          position: 'sticky',
           bottom: 0,
           left: 0,
           right: 0,

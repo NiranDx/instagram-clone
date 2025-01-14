@@ -5,46 +5,60 @@ const GRAPHQL_ENDPOINT = 'https://graphql.anilist.co';
 
 const INITIAL_QUERY = gql`
   query Page($page: Int, $perPage: Int) {
-    Page(page: $page, perPage: $perPage) {
-      threads {
+  Page(page: $page, perPage: $perPage) {
+    threads {
+      id
+      title
+      isLiked
+      repliedAt
+      createdAt
+      updatedAt
+      user {
         id
-        title
-        isLiked
-        likeCount
-        repliedAt
+        name
+        avatar {
+          large
+        }
+        bannerImage
+        isFollowing
+        isFollower
+        isBlocked
         createdAt
         updatedAt
-        user {
-          id
-          name
-          avatar {
-            large
-            medium
-          }
-          bannerImage
-          isFollowing
-          isFollower
-          isBlocked
-          createdAt
-          updatedAt
+      }
+      replyUser {
+        id
+        name
+        avatar {
+          large
         }
-        replyUser {
-          id
-          name
-          about
-          avatar {
-            large
-            medium
-          }
+        bannerImage
+        moderatorRoles
+      }
+      likes {
+        name
+        avatar {
+          large
         }
-        body
-        categories {
-          id
-          name
-        }
+        isFollowing
+        isFollower
+      }
+      body
+      likeCount
+      replyCount
+      viewCount
+      isSubscribed
+      replyCommentId
+      replyUserId
+      userId
+      siteUrl
+      categories {
+        id
+        name
       }
     }
   }
+}
 `;
 
 const client = new ApolloClient({
@@ -62,10 +76,7 @@ export function FetchFeedsData(page, perPage) {
       client,
     });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  return {data: data.Page.threads}
+  return {data: data?.Page?.threads||[],loading:loading,error:error}
 };
 
 export default client; 
