@@ -5,6 +5,7 @@ import { Avatar, Button, Card, Col, Row, Spin, Typography } from 'antd';
 import '../css/feed.css';
 import imageReload from '../assets/imgaes/reload.jpg';
 import ViewMoreDetail from './ViewMoreDetail';
+import HeartAnimetion from './HeartAnimation';
 
 const { Text } = Typography;
 
@@ -12,7 +13,7 @@ const Feed = () => {
   const [page, setPage] = useState(1);
   const [feedData, setFeedData] = useState([]);
   const [likedPosts, setLikedPosts] = useState(new Set()); // Set to manage liked states
-
+  
   const { data, loading, error } = FetchFeedsData(page, 20);
 
   useEffect(() => {
@@ -90,11 +91,14 @@ const Feed = () => {
                   }
                   description={
                     <div>
+                      <div style={{ position: 'relative', width: '100%', height: '100%'}}>
+                      <HeartAnimetion isActive={likedPosts.has(post?.id)} toggleLike={() => toggleLike(post?.id)}/>
                       <img
                         alt="example"
                         style={{ width: '100%', minHeight: '100%' }}
                         src={post?.user?.bannerImage || imageReload}
                       />
+                      </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
                           <Button
