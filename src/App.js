@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
 import { ConfigProvider, Layout } from 'antd';
-import Sidebar from './components/Sidebar';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Feed from './components/Feed';
-import HeaderForMobile from './components/HeaderForMobile';
 import FooterMenu from './components/FooterMenu';
+import HeaderForMobile from './components/HeaderForMobile';
 import InstagramStory from './components/InstagramStory';
 import RefeFriend from './components/RefeFriend';
-
-const { Content } = Layout;
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

@@ -1,8 +1,9 @@
 #container-instagramStory{
     .container-instagramStory{
         max-width: 550px;
+        min-width: 100%;
         @media (max-width: 768px) {
-            max-width: 100% !important;
+            width: 100% !important;
         } 
     }
 }

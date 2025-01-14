@@ -2,50 +2,27 @@ import { BookOutlined, CommentOutlined, EllipsisOutlined, HeartOutlined, SendOut
 import { Avatar, Card, Col, Row, Typography } from 'antd';
 import React from 'react';
 import '../css/feed.css';
+import { FetchFeedsData } from '../api/getFeeds';
+import imageReload from '../assets/imgaes/reload.jpg'
 
 const { Text } = Typography;
 
 const Feed = () => {
-  const posts = [
-    {
-      id: 1,
-      user: 'john_doe',
-      image: 'https://via.placeholder.com/500',
-      description: 'A beautiful sunset! #sunset #nature',
-      likes: 123,
-      comments: 45,
-    },
-    {
-      id: 2,
-      user: 'jane_doe',
-      image: 'https://via.placeholder.com/500',
-      description: 'Having a great day with friends! #goodtimes #friends',
-      likes: 150,
-      comments: 30,
-    },
-    {
-      id: 3,
-      user: 'alex_smith',
-      image: 'https://via.placeholder.com/500',
-      description: 'Delicious food at my favorite restaurant! #foodie #yum',
-      likes: 200,
-      comments: 60,
-    },
-  ];
+  const { data = [] } = FetchFeedsData(1,5)
 
   return (
     <div id='container-feed' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
       <div  className='container-feed' style={{maxWidth: "500px "}}>
         <Row gutter={[16, 16]}>
-          {posts.map((post) => (
+          {data.map((post,index) => (
             <Col span={24} key={post.id}>
               <Card>
                 <Card.Meta
                   title={
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <div>
-                        <Avatar size={32} icon={<UserOutlined />} />
-                        <Text style={{ marginLeft: '10px' }} strong>{post.user}</Text>
+                        <Avatar src={post.user.avatar.large} size={32} icon={<UserOutlined />} />
+                        <Text style={{ marginLeft: '10px' }} strong>{post.user.name}</Text>
                       </div>
                       <div>
                         <EllipsisOutlined />
@@ -54,7 +31,7 @@ const Feed = () => {
                   }
                   description={
                     <div>
-                      <img alt="example"  style={{width: "100% "}} src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+                      <img alt="example"  style={{width: "100% "}} src={post.user.bannerImage || imageReload} />
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
                           <HeartOutlined style={{ marginRight: '10px' }} />
@@ -66,11 +43,11 @@ const Feed = () => {
                         </div>
                       </div>
                       <div style={{ marginTop: '10px', fontSize: '14px' }}>
-                        <Text strong>{post.likes} Likes</Text>
-                        <Text style={{ marginLeft: '10px' }}>{post.comments} Comments</Text>
+                        <Text strong>{post.likeCount} Likes</Text>
+                        <Text style={{ marginLeft: '10px' }}>{Math.floor(Math.random() * (100 - 0 + 1)) + 0} Comments</Text>
                       </div>
-                      <Text strong>{post.user}</Text>
-                      <Text style={{ marginLeft: '10px' }}>{post.description}</Text>
+                      <Text strong>{post.user.name}</Text>
+                      <Text style={{ marginLeft: '10px' }}><div dangerouslySetInnerHTML={{ __html: post.body }} /></Text>
                     </div>
                   }
                 />
