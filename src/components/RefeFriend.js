@@ -1,14 +1,15 @@
 
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Typography } from 'antd';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FetchQlUser } from '../api/getUser';
+import { AuthContext } from '../App';
 
 
 const { Title, Text } = Typography;
 
-const RefeFriend = ({ nameId = "User test", name = "Nick", isFollow = false }) => {
-    const { data = [] } = FetchQlUser(1, 6)
+const RefeFriend = ({ name = "Nick", isFollow = false }) => {
+    const { users: data } = useContext(AuthContext);
 
     return (
         <>
@@ -25,6 +26,7 @@ const RefeFriend = ({ nameId = "User test", name = "Nick", isFollow = false }) =
                     gap: '16px',
                 }}>
                     <Avatar
+                        src={data[0]?.avatar.large}
                         style={{
                             width: '40px',
                             height: '40px',
@@ -42,8 +44,8 @@ const RefeFriend = ({ nameId = "User test", name = "Nick", isFollow = false }) =
                         alignItems: 'flex-start',
                     }}
                 >
-                    <Text strong>{name}</Text>
-                    <Text>{`Followed by ${name}`}</Text>
+                    <Text strong>{data[0]?.name}</Text>
+                    <Text>{`Followed by ${data[0]?.name}`}</Text>
                 </div>
                 <div><Button type="text">Switch</Button></div>
             </div>

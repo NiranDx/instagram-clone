@@ -10,19 +10,21 @@ import {
   SearchOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Input, Layout, Menu, Drawer } from "antd";
-import React, { useState } from "react";
+import { Input, Layout, Menu, Drawer, Avatar } from "antd";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/sidebar.css";
+import { AuthContext } from "../App";
 
 const { Sider } = Layout;
 
 const Sidebar = ({ PageSize }) => {
+  const { users: data } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
 
   const handleMenuClick = (key) => {
     if (key !== "search") {
-      setOpen(false); 
+      setOpen(false);
     }
   };
 
@@ -50,9 +52,8 @@ const Sidebar = ({ PageSize }) => {
       }}
     >
       <div
-        className={`container-sidebar ${
-          open || PageSize <= 1024 ? "collapsed-inactive" : ""
-        }`}
+        className={`container-sidebar ${open || PageSize <= 1024 ? "collapsed-inactive" : ""
+          }`}
       >
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
           <h2 style={{ fontWeight: "bold", color: "#000" }}>
@@ -91,7 +92,15 @@ const Sidebar = ({ PageSize }) => {
           <Menu.Item key="create" icon={<PlusCircleOutlined />}>
             <Link to="/create">Create</Link>
           </Menu.Item>
-          <Menu.Item key="profile" icon={<UserOutlined />}>
+          <Menu.Item key="profile" icon={<Avatar
+          src={data[0]?.avatar.large}
+            style={{
+              width: '20px',
+              height: '20px',
+              aspectRatio: '1 / 1',
+            }}
+            icon={<UserOutlined />}
+          />}>
             <Link to="/profile">Profile</Link>
           </Menu.Item>
         </Menu>
