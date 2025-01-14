@@ -1,7 +1,7 @@
 import { BookOutlined, CommentOutlined, EllipsisOutlined, HeartOutlined, SendOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Card, Col, Row, Typography } from 'antd';
 import React from 'react';
-import '../css/feed.css'
+import '../css/feed.css';
 
 const { Text } = Typography;
 

@@ -1,0 +1,10 @@
+#container-sidebar{
+    .container-sidebar{
+        &.collapsed-inactive{
+            .ant-menu-item-selected{
+                border: 1px solid #9c9c9c;
+            }
+        }
+        
+    }
+}
