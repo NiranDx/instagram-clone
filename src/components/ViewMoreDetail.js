@@ -20,7 +20,7 @@ const ViewMoreDetail = ({ rows = 2, isShowViewMore = true, children = '' }) => {
         {children}
       </Paragraph>
       {isShowViewMore && (<div style={{ textAlign: 'end'}}>
-        <Button type="link" onClick={() => setExpanded(!expanded)}>
+        <Button type="link" style={{color: 'grey'}} onClick={() => setExpanded(!expanded)}>
           {expanded ? 'View Less' : 'View More'}
         </Button>
       </div>)}
