@@ -1,0 +1,9 @@
+#container-footer {
+    li {
+        padding: 0 25px;
+    }
+
+    .ant-menu-title-content {
+        margin-inline-start: 0;
+    }
+}

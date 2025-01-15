@@ -96,11 +96,10 @@ const Feed = () => {
 
   return (
     <div id="container-feed">
-
       <div className="container-feed">
         <Row gutter={[16, 16]}>
-          {feedData.map((post) => (
-            <Col span={24} key={`feed-${post?.id}`}>
+          {feedData.map((post, index) => (
+            <Col span={24} key={`feed-${index}`}>
               <Card className="card">
                 <Card.Meta
                   title={
@@ -166,10 +165,10 @@ const Feed = () => {
               </Card>
             </Col>
           ))}
-          {loading && (
-            <Col span={24} style={{ textAlign: 'center', padding: 50, borderRadius: 4 }}>
-              <div>
-                <Spin tip="Loading More..."> </Spin>
+          { loading &&(
+            <Col span={24} style={{ textAlign: 'center', padding: 50, width: '100%'}}>
+              <div >
+                <Spin style={{position: 'relative', height: feedData.length == 0 ? '80dvh' : '80px'}} tip="Loading More..."> </Spin>
               </div>
             </Col>
           )}

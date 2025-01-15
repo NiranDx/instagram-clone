@@ -20,7 +20,7 @@ const HeaderForMobile = () => {
   };
 
   const handleInputChange = (e) => {
-    setInputSearch(e.target.value);
+    setInputSearch(e?.target?.value);
   };
 
   const handleCloseDrawer = () => {
@@ -45,11 +45,14 @@ const HeaderForMobile = () => {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Input
           ref={inputRef}
+          value={inputSearch}
+          allowClear
           placeholder="Search"
           prefix={<SearchOutlined />}
           onClick={handleInputClick}
-          // onChange={handleInputChange}
+          onChange={handleInputChange}
           onPressEnter={handleInputChange}
+          onClear={handleInputChange}
           style={{
             width: '200px',
             borderRadius: '10px',
@@ -67,7 +70,7 @@ const HeaderForMobile = () => {
         open={open}
         rootStyle={{ top: '64px', zIndex: '90' }}
       >
-        <SearchList isShowSearch={false} search={inputSearch} />
+        <SearchList isShowSearch={false} search={inputSearch} setInputSearchClear={() => setInputSearch('')}/>
       </Drawer>
     </Header>
   );

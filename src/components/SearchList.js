@@ -6,13 +6,20 @@ import { GetUserData } from '../api/getUser';
 
 const { Text } = Typography;
 
-const SearchList = ({ isShowSearch = true, search = '' }) => {
-    const [inputSearch, setInputSearch] = useState(undefined)
+const SearchList = ({ isShowSearch = true, search = '', setInputSearchClear = () => null }) => {
+    const [inputSearch, setInputSearch] = useState('')
     const [result, setResult] = useState([])
-    const { data: resData = [] } = GetUserData(1, inputSearch ? 20 : 6, inputSearch)
+    const { data: resData = [] } = GetUserData(1, inputSearch ? 10 : 6, inputSearch)
     const handleChange = (e) => {
-        setInputSearch(e?.target?.value)
+        setInputSearch(e?.target?.value || "")
+
     }
+
+    const onSearchClear = () => {
+        setInputSearch("")
+        setInputSearchClear()
+    }
+    console.log(inputSearch);
 
     useEffect(() => {
         return () => {
@@ -36,9 +43,10 @@ const SearchList = ({ isShowSearch = true, search = '' }) => {
                 isShowSearch && (
                     <div>
                         <Input
+                            value={inputSearch}
                             placeholder="Search..."
                             allowClear
-                            // onChange={handleChange}
+                            onChange={handleChange}
                             onPressEnter={handleChange}
                             onClear={handleChange}
                         />
@@ -47,7 +55,7 @@ const SearchList = ({ isShowSearch = true, search = '' }) => {
             }
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: !isShowSearch ? '0 0 20px 0' : '20px 0' }}>
                 <Text strong level={5}>Recent</Text>
-                <Button>Creal all</Button>
+                <Button onClick={onSearchClear}>Creal all</Button>
             </div>
             {
                 result.length === 0 ? <div style={{ textAlign: 'center', alignContent: 'center', minHeight: '80%' }}>{inputSearch?.length > 0 ? 'Not found searches' : 'No recent searches'}</div>

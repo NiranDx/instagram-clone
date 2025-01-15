@@ -89,4 +89,19 @@
             font-size: 14px;
         }
     }
+
+    .ant-spin-text {
+        display        : flex;
+        flex-wrap      : nowrap;
+        justify-content: center;
+        /* min-width      : 100px; */
+        max-width: 400px;
+        min-width: 100%;
+
+
+        @media (max-width: 768px) {
+            min-width: 100%;
+            max-width: 300px !important;
+        }
+    }
 }

@@ -3,12 +3,13 @@ import { Avatar, Layout, Menu } from 'antd';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../App';
+import '../css/footerMenu.css'
 const { Header, Content, Footer } = Layout;
 
 const FooterMenu = () => {
   const { users: data = [] } = useContext(AuthContext);
   return (
-    <Footer
+    <Footer id="container-footer"
       style={{
         background: '#fff',
         borderTop: '1px solid #ddd',
@@ -21,12 +22,12 @@ const FooterMenu = () => {
         justifyContent: 'space-between',
       }}
     >
-      <Menu mode="horizontal" style={{ width: '100%', display: 'flex', justifyContent: 'space-around', border: 'none' }}>
-        <Menu.Item key="home" icon={<HomeOutlined />} style={{ textAlign: 'center' }}><Link to="/" /></Menu.Item>
-        <Menu.Item key="explore" icon={<CompassOutlined />} style={{ textAlign: 'center' }}><Link to="/explore" /></Menu.Item>
-        <Menu.Item key="reels" icon={<PlayCircleOutlined />} style={{ textAlign: 'center' }}><Link to="/reels" /></Menu.Item>
-        <Menu.Item key="create" icon={<PlusCircleOutlined />} style={{ textAlign: 'center' }}><Link to="/create" /></Menu.Item>
-        <Menu.Item key="messages" icon={<MessageOutlined />} style={{ textAlign: 'center' }}><Link to="/messages" /></Menu.Item>
+      <Menu mode="horizontal" style={{ width: '100%', display: 'flex', justifyContent: 'center', border: 'none' }}>
+        <Menu.Item key="home" icon={<HomeOutlined />} style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}><Link to="/" /></Menu.Item>
+        <Menu.Item key="explore" icon={<CompassOutlined />} style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}><Link to="/explore" /></Menu.Item>
+        <Menu.Item key="reels" icon={<PlayCircleOutlined />} style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}><Link to="/reels" /></Menu.Item>
+        <Menu.Item key="create" icon={<PlusCircleOutlined />} style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}><Link to="/create" /></Menu.Item>
+        <Menu.Item key="messages" icon={<MessageOutlined />} style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}><Link to="/messages" /></Menu.Item>
         <Menu.Item key="profile" icon={<Avatar
           src={data[0]?.avatar?.large}
           style={{

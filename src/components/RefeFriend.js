@@ -9,7 +9,7 @@ const { Text } = Typography;
 const RefeFriend = ({ name = "Nick", isFollow = false }) => {
     const { users = [] } = useContext(AuthContext);
     const data = [...users]?.slice(1, 8); 
-
+    if(users.length == 0) return null
     return (
         <div id='container-refe-friend'>
             <div className='container-refe-friend'>
