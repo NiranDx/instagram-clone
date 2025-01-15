@@ -1,5 +1,5 @@
+import { Button, Typography } from 'antd';
 import React, { useState } from 'react';
-import { Typography, Button } from 'antd';
 
 const { Paragraph } = Typography;
 

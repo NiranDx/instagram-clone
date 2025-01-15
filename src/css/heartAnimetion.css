@@ -1,83 +1,83 @@
 #container-heart-animation {
-    position: absolute;
-    left: 50%;
-    top: 50%;
+    position : absolute;
+    left     : 50%;
+    top      : 50%;
     transform: translate(-50%, -50%);
-    width: 100% !important;
-    height: 100% !important;
-    display: flex;
+    width    : 100% !important;
+    height   : 100% !important;
+    display  : flex;
 }
 
 #toggle-heart {
-    position: absolute;
-    left: -100vw;
-    width: 100% !important;
-    height: 100% !important;
-    display: flex;
-    text-align: center;
-    margin: auto;
+    position       : absolute;
+    left           : -100vw;
+    width          : 100% !important;
+    height         : 100% !important;
+    display        : flex;
+    text-align     : center;
+    margin         : auto;
     justify-content: center;
 }
 
 #toggle-heart:checked+label {
-    color: #e2264d;
-    will-change: font-size;
-    animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+    color              : #e2264d;
+    font-size          : 0;
+    will-change        : font-size;
+    animation          : heart 2s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+    animation-fill-mode: forwards;
 }
 
 #toggle-heart:checked+label:before,
 #toggle-heart:checked+label:after {
-    animation: inherit;
+    animation                : inherit;
     animation-timing-function: ease-out;
+    animation-fill-mode      : forwards;
 }
 
-/* #toggle-heart:checked+label:before {
-    will-change: transform, border-width, border-color;
-    animation-name: bubble;
-} */
-
 #toggle-heart:checked+label:after {
-    will-change: opacity, box-shadow;
-    animation-name: particles;
+    will-change        : opacity, box-shadow;
+    animation-name     : particles;
+    animation-duration : 2s;
+    animation-fill-mode: forwards;
 }
 
 label[for="toggle-heart"] {
-    align-self: center;
-    position: relative;
-    color: #aab8c2;
-    font-size: 2em;
-    user-select: none;
-    cursor: pointer;
-    width: 100% !important;
-    height: 100% !important;
-    display: flex;
+    align-self     : center;
+    position       : relative;
+    color          : #aab8c2;
+    font-size      : 55px;
+    user-select    : none;
+    cursor         : pointer;
+    width          : 100% !important;
+    height         : 100% !important;
+    display        : flex;
     justify-content: center;
-    align-items: center;
+    align-items    : center;
 }
 
 label[for="toggle-heart"]:before,
 label[for="toggle-heart"]:after {
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    left: 50%;
+    position     : absolute;
+    z-index      : -1;
+    top          : 50%;
+    left         : 50%;
     border-radius: 50%;
-    content: '';
+    content      : '';
 }
 
 label[for="toggle-heart"]:before {
     box-sizing: border-box;
-    margin: -2.25rem;
-    border: solid 2.25rem #e2264d;
-    width: 100% !important;
-        height: 100% !important;
-        display: flex;
-    transform: scale(0);
+    margin    : -2.25rem;
+    border    : solid 2.25rem #e2264d;
+    width     : 100% !important;
+    height    : 100% !important;
+    display   : flex;
+    transform : scale(0);
 }
 
 label[for="toggle-heart"]:after {
     margin: -0.1875rem;
-    width: 0.375rem;
+    width : 0.375rem;
     height: 0.375rem;
     box-shadow: 0.32476rem -3rem 0 -0.20625rem #ff8080,
         -0.32476rem -2.625rem 0 -0.20625rem #ffed80,
@@ -101,20 +101,10 @@ label[for="toggle-heart"]:after {
     17.5% {
         font-size: 0;
     }
-}
 
-@keyframes bubble {
-    15% {
-        transform: scale(1);
-        border-color: #cc8ef5;
-        border-width: 2.25rem;
-    }
-
-    30%,
+    80%,
     100% {
-        transform: scale(1);
-        border-color: #cc8ef5;
-        border-width: 0;
+        font-size: 60px;
     }
 }
 
@@ -126,7 +116,8 @@ label[for="toggle-heart"]:after {
     }
 
     25% {
-        opacity: 1;
+        transform: scale(1);
+        opacity  : 1;
         box-shadow: 0.32476rem -2.4375rem 0 0rem #ff8080,
             -0.32476rem -2.0625rem 0 0rem #ffed80,
             2.1082rem -1.26585rem 0 0rem #ffed80,

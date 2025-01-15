@@ -1,26 +1,28 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { FetchFeedsData } from '../api/getFeeds';
-import { BookOutlined, CommentOutlined, EllipsisOutlined, HeartFilled, HeartOutlined, SendOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  BookOutlined,
+  CommentOutlined,
+  EllipsisOutlined,
+  HeartFilled,
+  HeartOutlined,
+  SendOutlined,
+  UserOutlined
+} from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Row, Spin, Typography } from 'antd';
-import '../css/feed.css';
-import imageReload from '../assets/imgaes/reload.jpg';
-import ViewMoreDetail from './ViewMoreDetail';
+import React, { useCallback, useEffect, useState } from 'react';
+import { GetFeedsData } from '../api/getFeeds';
+import imageReload from '../assets/images/reload.jpg';
+import '../css/feeds.css';
 import HeartAnimetion from './HeartAnimation';
+import ViewMoreDetail from './ViewMoreDetail';
 
 const { Text } = Typography;
 
 const Feed = () => {
   const [page, setPage] = useState(1);
   const [feedData, setFeedData] = useState([]);
-  const [likedPosts, setLikedPosts] = useState(new Set()); // Set to manage liked states
-  
-  const { data, loading, error } = FetchFeedsData(page, 20);
+  const [likedPosts, setLikedPosts] = useState(new Set());
 
-  useEffect(() => {
-    if (data && data?.length > 0) {
-      setFeedData((prev) => [...prev, ...data]);
-    }
-  }, [data]);
+  const { data, loading, error } = GetFeedsData(page, 20);
 
   const handleScroll = useCallback(() => {
     if (
@@ -31,15 +33,10 @@ const Feed = () => {
     }
   }, []);
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-  const toggleLike = (id) => {
+  const toggleLike = (id, isLikedOnly = false) => {
     setLikedPosts((prev) => {
-      const updatedLikes = new Set(prev);
-      if (updatedLikes.has(id)) {
+      const updatedLikes = new Set(prev); 
+      if (updatedLikes.has(id) && !isLikedOnly) {
         updatedLikes.delete(id);
       } else {
         updatedLikes.add(id);
@@ -50,8 +47,7 @@ const Feed = () => {
 
   const convertTimestampToDatetime = (timestamp = new Date(), options = {}) => {
     const date = new Date(timestamp * 1000);
-
-    const locale = options.locale || 'default'; // Default locale
+    const locale = options.locale || 'default';
     const formatOptions = options.formatOptions || {
       year: 'numeric',
       month: 'long',
@@ -59,30 +55,66 @@ const Feed = () => {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      hour12: true // 12-hour format
+      hour12: true
     };
     return date.toLocaleString(locale, formatOptions);
-  }
+  };
+
+  const formatComments = (number) => {
+    if (typeof number !== "number" || number < 0) {
+      return 0;
+    }
+
+    const thresholds = {
+      k: 1000,
+      m: 1000000,
+      b: 1000000000,
+    };
+
+    if (number >= thresholds.b) {
+      return (number / thresholds.b).toFixed(1) + 'b';
+    } else if (number >= thresholds.m) {
+      return (number / thresholds.m).toFixed(1) + 'm';
+    } else if (number >= thresholds.k) {
+      return (number / thresholds.k).toFixed(1) + 'k';
+    } else {
+      return number.toString();
+    }
+  };
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setFeedData((prev) => [...prev, ...data]);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
 
   return (
-    <div id="container-feed" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+    <div id="container-feed">
+
       <div className="container-feed">
         <Row gutter={[16, 16]}>
-          {feedData?.map((post) => (
-            <Col span={24} key={post?.id}>
-              <Card>
+          {feedData.map((post) => (
+            <Col span={24} key={`feed-${post?.id}`}>
+              <Card className="card">
                 <Card.Meta
                   title={
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <div style={{ display: 'flex', gap: '12px' }}>
-                        <Avatar src={post?.user?.avatar?.large || imageReload} size={32} icon={<UserOutlined />} />
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <Text strong>
-                            {post?.user?.name}
-                          </Text>
-                          <Text style={{ fontWeight: '400', fontSize: '10px' }}>{convertTimestampToDatetime(post?.createdAt)}</Text>
+                    <div className="header">
+                      <div className="user-info">
+                        <Avatar
+                          src={post?.user?.avatar?.large || imageReload}
+                          size={32}
+                          icon={<UserOutlined />}
+                        />
+                        <div className="username">
+                          <Text strong>{post?.user?.name}</Text>
+                          <Text className="timestamp">{convertTimestampToDatetime(post?.createdAt)}</Text>
                         </div>
-
                       </div>
                       <div>
                         <EllipsisOutlined />
@@ -91,40 +123,39 @@ const Feed = () => {
                   }
                   description={
                     <div>
-                      <div style={{ position: 'relative', width: '100%', height: '100%'}}>
-                      <HeartAnimetion isActive={likedPosts.has(post?.id)} toggleLike={() => toggleLike(post?.id)}/>
-                      <img
-                        alt="example"
-                        style={{ width: '100%', minHeight: '100%' }}
-                        src={post?.user?.bannerImage || imageReload}
-                      />
+                      <div className="image-container">
+                        <HeartAnimetion
+                          isActive={likedPosts.has(post?.id)}
+                          toggleLike={() => toggleLike(post?.id, true)}
+                        />
+                        <img
+                          alt={`cover-feed-${post?.id}`}
+                          src={post?.user?.bannerImage || imageReload}
+                        />
                       </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
+                      <div className="actions">
+                        <div className="action-buttons">
                           <Button
                             type="link"
-                            style={{ padding: 0, color: 'grey', fontSize: '20px' }}
                             onClick={() => toggleLike(post?.id)}
                           >
                             {likedPosts.has(post?.id) ? (
-                              <HeartFilled style={{ marginRight: '10px', color: '#f00' }} />
+                              <HeartFilled style={{ color: '#f00' }} />
                             ) : (
-                              <HeartOutlined style={{ marginRight: '10px' }} />
+                              <HeartOutlined />
                             )}
                           </Button>
-                          <Button type="link" style={{ padding: 0, color: 'grey', fontSize: '20px' }}><CommentOutlined style={{ marginRight: '10px' }} /></Button>
-                          <Button type="link" style={{ padding: 0, color: 'grey', fontSize: '20px' }}><SendOutlined /></Button>
+                          <Button type="link"><CommentOutlined /></Button>
+                          <Button type="link"><SendOutlined /></Button>
                         </div>
-                        <div>
-                          <Button type="link" style={{ padding: 0, color: 'grey', fontSize: '20px' }}><BookOutlined /></Button>
-                        </div>
+                        <Button type="link"><BookOutlined /></Button>
                       </div>
-                      <div style={{ marginTop: '10px', fontSize: '14px' }}>
-                        <Text strong>{likedPosts.has(post?.id) ? post?.likeCount + 1 : post?.likeCount} Likes</Text>
-                        <Text style={{ marginLeft: '10px' }}>{post?.replyCount} Comments</Text>
+                      <div className="likes-comments">
+                        <Text strong>{formatComments(likedPosts.has(post?.id) ? post?.likeCount + 1 : post?.likeCount)} Likes</Text>
+                        <Text style={{ marginLeft: '10px' }}>{formatComments(post?.replyCount)} Comments</Text>
                       </div>
                       <Text strong>{post?.user?.name}</Text>
-                      <Text style={{ marginLeft: '10px' }}>
+                      <Text>
                         <ViewMoreDetail isShowViewMore={post?.body?.length > 100}>
                           <div dangerouslySetInnerHTML={{ __html: post?.body }} />
                         </ViewMoreDetail>

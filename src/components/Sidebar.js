@@ -10,17 +10,18 @@ import {
   SearchOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Input, Layout, Menu, Drawer, Avatar } from "antd";
+import { Avatar, Drawer, Layout, Menu } from "antd";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import "../css/sidebar.css";
 import { AuthContext } from "../App";
+import "../css/sidebar.css";
 import SearchList from "./SearchList";
 
 const { Sider } = Layout;
 
 const Sidebar = ({ PageSize }) => {
-  const { users: data } = useContext(AuthContext);
+  const { users = [] } = useContext(AuthContext);
+  const data = [...users]?.slice(0, 7) || [];
   const [open, setOpen] = useState(false);
 
   const handleMenuClick = (key) => {
@@ -74,7 +75,7 @@ const Sidebar = ({ PageSize }) => {
           <Menu.Item
             key="search"
             icon={<SearchOutlined />}
-            onClick={showDrawer} // Toggle the search drawer
+            onClick={showDrawer} 
           >
             Search
           </Menu.Item>
@@ -117,7 +118,6 @@ const Sidebar = ({ PageSize }) => {
           </Menu>
         </div>
 
-        {/* Popup Drawer */}
         <Drawer
           title="Search"
           placement="left"
@@ -125,7 +125,7 @@ const Sidebar = ({ PageSize }) => {
           open={open}
           rootStyle={{ left: "80px", zIndex: "90" }}
         >
-          
+
 
           <SearchList />
         </Drawer>

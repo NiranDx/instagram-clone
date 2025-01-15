@@ -2,27 +2,33 @@
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Input, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { FetchQlUser } from '../api/getUser';
-
+import { GetUserData } from '../api/getUser';
 
 const { Text } = Typography;
 
 const SearchList = ({ isShowSearch = true, search = '' }) => {
-    const [inputSearch, setInputSearch] = useState('')
+    const [inputSearch, setInputSearch] = useState(undefined)
     const [result, setResult] = useState([])
-    
-    const { data: resData = [] } = FetchQlUser(null, null, inputSearch)
+    const { data: resData = [] } = GetUserData(1, inputSearch ? 20 : 6, inputSearch)
     const handleChange = (e) => {
-        setInputSearch(e.target.value)
+        setInputSearch(e?.target?.value)
     }
 
     useEffect(() => {
+        return () => {
+            setInputSearch(undefined)
+            setResult([])
+        }
+    }, [])
+
+    useEffect(() => {
         setInputSearch(search)
+
     }, [search])
 
     useEffect(() => {
         setResult(resData)
-    },[resData?.length])
+    }, [resData?.length])
 
     return (
         <>
@@ -34,16 +40,17 @@ const SearchList = ({ isShowSearch = true, search = '' }) => {
                             allowClear
                             // onChange={handleChange}
                             onPressEnter={handleChange}
+                            onClear={handleChange}
                         />
                     </div>
                 )
             }
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: !isShowSearch ? '0 0 20px 0' :'20px 0' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: !isShowSearch ? '0 0 20px 0' : '20px 0' }}>
                 <Text strong level={5}>Recent</Text>
                 <Button>Creal all</Button>
             </div>
             {
-                result.length === 0 ? <div style={{ textAlign: 'center', alignContent: 'center', minHeight: '80%' }}>No recent searches</div>
+                result.length === 0 ? <div style={{ textAlign: 'center', alignContent: 'center', minHeight: '80%' }}>{inputSearch?.length > 0 ? 'Not found searches' : 'No recent searches'}</div>
                     :
                     result.map((item, index) => {
                         return (

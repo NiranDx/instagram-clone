@@ -1,9 +1,53 @@
-#container-instagramStory{
-    .container-instagramStory{
+#container-instagramStory {
+    width          : 100%;
+    min-height     : 100px;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+
+
+    .container-instagramStory {
         max-width: 550px;
         min-width: 100%;
+
         @media (max-width: 768px) {
             width: 100% !important;
-        } 
+        }
+    }
+
+    .slick-arrow {
+        color    : #a3a3a3;
+        font-size: 24px;
+    }
+
+    .slick-arrow::after,
+    .slick-arrow::before {
+        display: none;
+    }
+
+    .ant-carousel {
+
+        .carousel-slide {
+            display        : flex !important;
+            justify-content: center;
+            align-items    : center;
+
+            .carousel-item {
+                min-width : 70px;
+                text-align: center;
+
+
+                .ant-avatar {
+                    min-width   : 48px;
+                    min-height  : 48px;
+                    aspect-ratio: 1 / 1;
+                }
+
+                .user-name {
+                    margin-top: 5px;
+                    font-size : 12px;
+                }
+            }
+        }
     }
 }

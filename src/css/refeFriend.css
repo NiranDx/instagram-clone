@@ -1,0 +1,41 @@
+#container-refe-friend {
+    width : 320px;
+    margin: 36px 0 0;
+
+    .container-refe-friend {
+
+        .friend-header,
+        .friend-item {
+            display        : flex;
+            justify-content: space-between;
+            align-items    : center;
+            padding        : 4px;
+        }
+
+        .friend-info {
+            display        : flex;
+            justify-content: flex-start;
+            align-items    : center;
+            gap            : 16px;
+
+            .avatar {
+                width       : 40px;
+                height      : 40px;
+                aspect-ratio: 1 / 1;
+            }
+
+            .friend-details {
+                display        : flex;
+                flex-direction : column;
+                justify-content: flex-start;
+                align-items    : flex-start;
+            }
+        }
+
+        .suggestion-header {
+            display        : flex;
+            justify-content: space-between;
+            margin-top     : 24px;
+        }
+    }
+}

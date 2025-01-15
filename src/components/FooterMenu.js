@@ -6,7 +6,7 @@ import { AuthContext } from '../App';
 const { Header, Content, Footer } = Layout;
 
 const FooterMenu = () => {
-  const { users: data } = useContext(AuthContext);
+  const { users: data = [] } = useContext(AuthContext);
   return (
     <Footer
       style={{
