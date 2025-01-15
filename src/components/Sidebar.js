@@ -3,17 +3,17 @@ import {
   CompassOutlined,
   ContainerOutlined,
   HomeOutlined,
-  InstagramOutlined,
   MessageOutlined,
   PlayCircleOutlined,
   PlusCircleOutlined,
   SearchOutlined,
-  UserOutlined,
+  UserOutlined
 } from "@ant-design/icons";
-import { Avatar, Drawer, Layout, Menu } from "antd";
+import { Avatar, Drawer, Image, Layout, Menu } from "antd";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../App";
+import Logo from "../assets/images/logo512.png";
 import "../css/sidebar.css";
 import SearchList from "./SearchList";
 
@@ -59,7 +59,7 @@ const Sidebar = ({ PageSize }) => {
       >
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
           <h2 style={{ fontWeight: "bold", color: "#000" }}>
-            {open || PageSize <= 1024 ? <InstagramOutlined /> : "Instagram"}
+            {open || PageSize <= 1024 ? <Image width={40} src={Logo} preview={false}/> : "SocialD"}
           </h2>
         </div>
 
@@ -125,8 +125,6 @@ const Sidebar = ({ PageSize }) => {
           open={open}
           rootStyle={{ left: "80px", zIndex: "90" }}
         >
-
-
           <SearchList />
         </Drawer>
       </div>
