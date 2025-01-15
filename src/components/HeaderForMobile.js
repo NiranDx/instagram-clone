@@ -41,7 +41,7 @@ const HeaderForMobile = () => {
         boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
       }}
     >
-      <h2 style={{ margin: 0, fontWeight: 'bold' }}>Instagram</h2>
+      <h2 style={{ margin: 0, fontWeight: 'bold' }}>SocialD</h2>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Input
           ref={inputRef}
