@@ -19,7 +19,6 @@ const SearchList = ({ isShowSearch = true, search = '', setInputSearchClear = ()
         setInputSearch("")
         setInputSearchClear()
     }
-    console.log(inputSearch);
 
     useEffect(() => {
         return () => {
