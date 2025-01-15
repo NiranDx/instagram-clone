@@ -1,6 +1,4 @@
-
 import { ApolloClient, InMemoryCache, gql, useQuery } from '@apollo/client';
-
 
 const GRAPHQL_ENDPOINT = 'https://graphql.anilist.co';
 
@@ -22,18 +20,16 @@ const INITIAL_QUERY = gql`
   }
 `;
 
-
 const client = new ApolloClient({
   uri: GRAPHQL_ENDPOINT,
   cache: new InMemoryCache(),
 });
 
-export function FetchQlUser(page = 1, perPage = 5, search = null) {
-  
+export const GetUserData = (page = 1, perPage = 20, search = null) => {
   const INITIAL_VARIABLES = {
     page,
     perPage,
-    search
+    search,
   };
 
   const { loading, error, data } = useQuery(INITIAL_QUERY, {
@@ -41,7 +37,11 @@ export function FetchQlUser(page = 1, perPage = 5, search = null) {
     client,
   });
 
-  return { data: data?.Page?.users || [], loading: loading, error: error }
+  return {
+    data: data?.Page?.users, 
+    loading,
+    error,
+  };
 }
 
-export default client; 
+export default client;
